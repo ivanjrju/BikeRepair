@@ -12,3 +12,8 @@ class Oficinas(db.Model):
     avaliacaoTotal = db.Column(db.Float, nullable=False)
     descricao = db.Column(db.String, nullable=False)
     promocao = db.Column(db.String, nullable=False)
+    #enderecoOficinas = db.relationship('EnderecoOficinas', backref='enderecoOficinas')
+    #avaliacoesCliente = db.relationship('AvaliacoesCliente', backref='avaliacoesCliente')
+    #dashboard = db.relationship('Dashboards', backref='dashboard')
+    #servicos = db.relationship('Servicos', backref='servicos')
+    #usuariosOficina = db.relationship('UsuariosOficina', backref='usuariosOficina')

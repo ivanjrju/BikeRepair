@@ -10,3 +10,6 @@ class Clientes(db.Model):
     email = db.Column(db.String(50), nullable=False)
     senha = db.Column(db.String(50), nullable=False)
     fotoPerfil = db.Column(db.String, nullable=False)
+    #avaliacoesCliente = db.relationship('AvaliacoesCliente', backref='avaliacoesCliente')
+    #servicos = db.relationship('Servicos', backref='servicos')
+    #eusuariosOficina = db.relationship('UsuariosOficina', backref='usuariosOficina')
