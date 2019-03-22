@@ -4,9 +4,11 @@ from sqlalchemy import Column, Integer, DateTime, String, Float
 
 class Servico(db.Model):
 
-    idServico = db.Column(db.Integer, primary_key=True)
-    idCliente = db.Column(db.Integer, db.ForeignKey('Cliente.idCliente'))
-    idOficina = db.Column(db.Integer, db.ForeignKey('Oficina.idOficina'))
+    __tablename__ = 'servico'
+
+    id = db.Column(db.Integer, primary_key=True)
+    idCliente = db.Column(db.Integer, db.ForeignKey('cliente.id'))
+    idOficina = db.Column(db.Integer, db.ForeignKey('oficina.id'))
     servico = db.Column(db.String(50), nullable=False)
     preco = db.Column(db.Float, nullable=False)
     detalhe = db.Column(db.String, nullable=False)

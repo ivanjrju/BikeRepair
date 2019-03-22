@@ -4,8 +4,10 @@ from sqlalchemy import Column, Integer, DateTime, String, Float
 
 class EnderecoOficina(db.Model):
 
-    idEnderecoOficina = db.Column(db.Integer, primary_key=True)
-    idOficina = db.Column(db.Integer, db.ForeignKey('Oficina.idOficina'))
+    __tablename__ = 'endereco'
+
+    id = db.Column(db.Integer, primary_key=True)
+    idOficina = db.Column(db.Integer, db.ForeignKey('oficina.id'))
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     cep = db.Column(db.Integer, nullable=False)

@@ -3,7 +3,9 @@ from sqlalchemy import Column, Integer, DateTime, String, Float
 
 class Oficina(db.Model):
 
-    idOficina = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'oficina'
+
+    id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     senha = db.Column(db.String, nullable=False)
