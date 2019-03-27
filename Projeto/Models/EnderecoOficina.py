@@ -1,5 +1,5 @@
 from Server import db
-from sqlalchemy import Column, Integer, DateTime, String, Float
+from sqlalchemy import Column, Integer, Float
 
 
 class EnderecoOficina(db.Model):

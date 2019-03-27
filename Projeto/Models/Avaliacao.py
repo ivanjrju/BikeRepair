@@ -1,5 +1,5 @@
 from Server import db
-from sqlalchemy import Column, Integer, DateTime, String
+from sqlalchemy import Column, Integer, String
 
 
 class Avaliacao(db.Model):
