@@ -22,10 +22,8 @@ import android.widget.Toast
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.*
 
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import java.util.jar.Manifest
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback{
@@ -55,39 +53,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json))
+
         val listaEnderecos: MutableList<Oficina> = mutableListOf()
 
-        listaEnderecos.add( Oficina("Oficina 1",-23.4761838,-46.7478553, "Descrição da oficina 1") )
-        listaEnderecos.add( Oficina("Oficina 2",-23.47546132,-46.7536068, "Descrição da oficina 2") )
-        listaEnderecos.add( Oficina("Oficina 3",-23.48208599,-46.75136662, "Descrição da oficina 3") )
-        //listaEnderecos.add( Oficina("Oficina 4",-23.48094845,-46.74327707, "Descrição da oficina 4") )
+        listaEnderecos.add( Oficina("Augue",-23.4761838,-46.7478553, "Lorem ipsum hendrerit dictumst quisque, lobortis tristique vivamus.") )
+        listaEnderecos.add( Oficina("Massa",-23.47546132,-46.7536068, "Mi blandit condimentum et purus, enim torquent ut.") )
+        listaEnderecos.add( Oficina("Hac",-23.48208599,-46.75136662, "Et faucibus vitae nec aenean, viverra justo per.") )
+        listaEnderecos.add( Oficina("Aliquam",-23.48094845,-46.74327707, "Fusce lacus praesent ut accumsan, vestibulum tortor sit.") )
 
         for (item in listaEnderecos){
+
             val coordenadas = LatLng(item.lati,item.long)
-
-            var marker: Marker = mMap.addMarker(MarkerOptions().position(coordenadas).title(item.title))
-            //marker.setTag(0)
+            var marker: Marker = mMap.addMarker(MarkerOptions().position(coordenadas).title(item.title)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                                .alpha(0.9f))
+            marker.setTag(item)
             //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenadas, 16f))
-
-            var params: Bundle = Bundle()
-
-            params.putString("title", item.title)
-            params.putString("info", item.info)
-
-            println("#-#-#-#-#-#- Title: "+item.title+" ; Info: "+item.info)
 
             mMap!!.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
                 override fun onMarkerClick(marker: Marker): Boolean {
-                    //marker.getTag()
 
+                    var oficina : Oficina= marker.getTag() as Oficina
                     val intent = Intent(this@MapsActivity, OficinaInfo :: class.java)
 
-                    println("#-#-#-#-#-#- Title: "+item.title+" ; Info: "+item.info)
+                    var params: Bundle = Bundle()
+                    params.putString("title", oficina.title)
+                    params.putString("info", oficina.info)
 
                     intent.putExtras(params)
 
                     startActivity(intent)
-
 
                     return false
                 }
@@ -145,13 +141,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{
         }
 
     }
-
-    private val locationListener: LocationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {}
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-        override fun onProviderEnabled(provider: String) {}
-        override fun onProviderDisabled(provider: String) {}
-    }
+/*
+private val locationListener: LocationListener = object : LocationListener {
+    override fun onLocationChanged(location: Location) {}
+    override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+    override fun onProviderEnabled(provider: String) {}
+    override fun onProviderDisabled(provider: String) {}
+}
+*/
 }
 
 class Oficina(var title: String, var lati: Double, var long: Double, var info: String) {}
