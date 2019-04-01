@@ -17,3 +17,10 @@ class Oficina(db.Model):
     qntOrcamentosRejeitados = db.Column(db.Integer, nullable=False)
     qntReboquesAtendidos = db.Column(db.Integer, nullable=False)
     qntReboquesRejeitados = db.Column(db.Integer, nullable=False)
+    horarioFuncionamento = db.Column(db.String, nullable=False)
+
+    avaliacoes = db.relationship('Avaliacao', backref='oficina')
+    ordemServicos = db.relationship('OrdemServico', backref='oficina')
+    produtos = db.relationship('Produto', backref='oficina')
+    endereco = db.relationship('EnderecoOficina', backref='oficina')
+    chats = db.relationship('Chat', backref='oficina')
