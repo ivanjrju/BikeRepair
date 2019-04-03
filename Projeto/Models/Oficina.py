@@ -24,3 +24,20 @@ class Oficina(db.Model):
     produtos = db.relationship('Produto', backref='oficina')
     endereco = db.relationship('EnderecoOficina', backref='oficina')
     chats = db.relationship('Chat', backref='oficina')
+
+    def __init__(self, dados):
+        self.nome=dados["nome"]
+        self.foto=dados["foto"]
+        self.email=dados["email"]
+        self.senha=dados["senha"]
+        self.cpfCnpj=dados["cpfCnpj"]
+        self.avaliacaoTotal=dados["avaliacaoTotal"]
+        self.descricao=dados["descricao"]
+        self.qntOrcamentosAtendidos=dados["qntOrcamentosAtendidos"]
+        self.qntOrcamentosRejeitados=dados["qntOrcamentosRejeitados"]
+        self.qntReboquesAtendidos=dados["qntReboquesAtendidos"]
+        self.qntReboquesRejeitados=dados["qntReboquesRejeitados"]
+        self.horarioFuncionamento=dados["horarioFuncionamento"]
+
+    def __repr__(self):
+        return "%r" % (self.__dict__)

@@ -6,13 +6,20 @@ from Services import Util
 
 import sys
 
-
-@App.route('/login', methods=["POST"])
-def efetuarLogin():
+#~~~~ Login
+@App.route('/loginCliente', methods=["POST"])
+def loginCliente():
     dados = request.get_json()
-    resposta = Util.Login.efetuarLogin(dados)
+    resposta = Util.Login.cliente(dados)
     return jsonify(resposta)
 
+@App.route('/loginOficina', methods=["POST"])
+def loginOficina():
+    dados = request.get_json()
+    resposta = Util.Login.oficina(dados)
+    return jsonify(resposta)
+
+#~~~~ Cliente
 @App.route('/cadastrarCliente', methods=["POST"])
 def cadastrarCliente():
 
@@ -25,10 +32,25 @@ def listarClientes():
     lista = Util.FuncoesCliente.listar()
     return jsonify(lista)
 
+#~~~~ Cartao
 @App.route('/cadastrarCartaoCliente', methods=["POST"])
 def cadastrarCartaoCliente():
     dados = request.get_json()
     cartao = dados["cartao"]
     email = dados["cliente"]
     resposta = Util.FuncoesCliente.cadastrarCartao(cartao,email)
+    return jsonify(resposta)
+
+@App.route('/buscarCartaoCliente', methods=["POST"])
+def buscarCartaoCliente():
+    dados = request.get_json()
+    cartoes = Util.FuncoesCliente.buscarCartaoCliente(dados)
+    return jsonify(cartoes)
+
+#~~~~ Oficina
+@App.route('/cadastrarOficina', methods=["POST"])
+def cadastrarOficina():
+
+    dados = request.get_json()
+    resposta = Util.FuncoesOficina.cadastrar(dados)
     return jsonify(resposta)
