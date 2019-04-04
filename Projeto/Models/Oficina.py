@@ -31,12 +31,12 @@ class Oficina(db.Model):
         self.email=dados["email"]
         self.senha=dados["senha"]
         self.cpfCnpj=dados["cpfCnpj"]
-        self.avaliacaoTotal=dados["avaliacaoTotal"]
+        self.avaliacaoTotal=0
         self.descricao=dados["descricao"]
-        self.qntOrcamentosAtendidos=dados["qntOrcamentosAtendidos"]
-        self.qntOrcamentosRejeitados=dados["qntOrcamentosRejeitados"]
-        self.qntReboquesAtendidos=dados["qntReboquesAtendidos"]
-        self.qntReboquesRejeitados=dados["qntReboquesRejeitados"]
+        self.qntOrcamentosAtendidos=0
+        self.qntOrcamentosRejeitados=0
+        self.qntReboquesAtendidos=0
+        self.qntReboquesRejeitados=0
         self.horarioFuncionamento=dados["horarioFuncionamento"]
 
     def __repr__(self):

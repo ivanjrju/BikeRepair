@@ -100,6 +100,18 @@ class FuncoesOficina(object):
             print(e)
             return resposta("NOK", None)
 
+    def listar():
+        try:
+            oficinas =  Oficina.Oficina.query.all()
+            print(oficinas)
+            oficinasFormatados = []
+            for oficina in oficinas:
+                oficinasFormatados.append(removerInstance(oficina)) 
+            return resposta("OK", oficinasFormatados)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
     def buscarOficina(email):
         try:
             oficina =  Oficina.Oficina.query.filter_by(email=email).first()
@@ -107,6 +119,38 @@ class FuncoesOficina(object):
         except Exception as e: 
             print(e)
             return None
+
+
+#~~~~ Produto
+class FuncoesProduto(object):
+    def cadastrar(produto,oficina):
+        try:
+            print("a")
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
+            print("b")
+            produto = Produto.Produto(produto)
+            produto.idOficina = oficina["id"]
+            db.session.add(produto)
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+    def listar():
+        try:
+            produtos =  Produto.Produto.query.all()
+            print(produtos)
+            produtosFormatados = []
+            for produto in produtos:
+                produtosFormatados.append(removerInstance(produto)) 
+            return resposta("OK", produtosFormatados)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+
+
 
 
 def resposta(status, dados):

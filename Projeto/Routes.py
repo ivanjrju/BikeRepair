@@ -54,3 +54,22 @@ def cadastrarOficina():
     dados = request.get_json()
     resposta = Util.FuncoesOficina.cadastrar(dados)
     return jsonify(resposta)
+
+@App.route('/listarOficinas', methods=["GET"])
+def listarOficinas():
+    lista = Util.FuncoesOficina.listar()
+    return jsonify(lista)
+
+#~~~~ Produto
+@App.route('/cadastrarProduto', methods=["POST"])
+def cadastrarProduto():
+    dados = request.get_json()
+    produto = dados["produto"]
+    oficina = dados["oficina"]
+    resposta = Util.FuncoesProduto.cadastrar(produto,oficina)
+    return jsonify(resposta)
+
+@App.route('/listarProdutos', methods=["GET"])
+def listarProdutos():
+    lista = Util.FuncoesProduto.listar()
+    return jsonify(lista)
