@@ -73,3 +73,26 @@ def cadastrarProduto():
 def listarProdutos():
     lista = Util.FuncoesProduto.listar()
     return jsonify(lista)
+
+#~~~~ Ordem Servico
+@App.route('/cadastrarOrdemServico', methods=["POST"])
+def cadastrarOrdemServico():
+        dados = request.get_json()
+        ordemServico = dados["ordemServico"]
+        oficina = dados["oficina"]
+        cliente = dados["cliente"]
+
+        resposta = Util.FuncoesOrdemSerivo.cadastrar(ordemServico,oficina,cliente)
+        return jsonify(resposta)
+
+@App.route('/listarOrdemServicoCliente', methods=["POST"])
+def listarOrdemServicoCliente():
+    dados = request.get_json()
+    resposta = Util.FuncoesOrdemSerivo.listarOrdemServicoCliente(dados)
+    return jsonify(resposta)
+
+@App.route('/listarOrdemServicoOficina', methods=["POST"])
+def listarOrdemServicoOficina():
+    dados = request.get_json()
+    resposta = Util.FuncoesOrdemSerivo.listarOrdemServicoOficina(dados)
+    return jsonify(resposta)

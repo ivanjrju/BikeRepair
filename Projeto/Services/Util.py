@@ -125,9 +125,7 @@ class FuncoesOficina(object):
 class FuncoesProduto(object):
     def cadastrar(produto,oficina):
         try:
-            print("a")
             oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
-            print("b")
             produto = Produto.Produto(produto)
             produto.idOficina = oficina["id"]
             db.session.add(produto)
@@ -140,7 +138,6 @@ class FuncoesProduto(object):
     def listar():
         try:
             produtos =  Produto.Produto.query.all()
-            print(produtos)
             produtosFormatados = []
             for produto in produtos:
                 produtosFormatados.append(removerInstance(produto)) 
@@ -149,6 +146,46 @@ class FuncoesProduto(object):
             print(e)
             return resposta("NOK", None)
 
+
+#~~~~ Ordem Servico
+class FuncoesOrdemSerivo(object):
+    def cadastrar(ordemServico,oficina,cliente):
+        try:
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
+            cliente = removerInstance(Cliente.Cliente.query.filter_by(email=cliente["email"]).first())
+            ordemServico = OrdemServico.OrdemServico(ordemServico)
+            ordemServico.idCliente = cliente["id"]
+            ordemServico.idOficina = oficina["id"]         
+            db.session.add(ordemServico)
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+    def listarOrdemServicoCliente(cliente):
+        try:
+            cliente = removerInstance(Cliente.Cliente.query.filter_by(email=cliente["email"]).first())
+            ordemServicos = OrdemServico.OrdemServico.query.filter_by(idCliente=cliente["id"]).all()
+            ordemServicosFormatados = []
+            for ordemServico in ordemServicos:
+                ordemServicosFormatados.append(removerInstance(ordemServico)) 
+            return resposta("OK", ordemServicosFormatados)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+    def listarOrdemServicoOficina(oficina):
+        try:
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
+            ordemServicos = OrdemServico.OrdemServico.query.filter_by(idOficina=oficina["id"]).all()
+            ordemServicosFormatados = []
+            for ordemServico in ordemServicos:
+                ordemServicosFormatados.append(removerInstance(ordemServico)) 
+            return resposta("OK", ordemServicosFormatados)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
 
 
 
