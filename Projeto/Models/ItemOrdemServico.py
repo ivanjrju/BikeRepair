@@ -12,3 +12,8 @@ class ItemOrdemServico(db.Model):
     idOrdemServico = db.Column(db.Integer, db.ForeignKey('ordem_servico.id'))
     idProduto = db.Column(db.Integer, db.ForeignKey('produto.id'))
 
+    def __init__(self, dados):
+        self.qntProduto=dados["qntProduto"]
+
+    def __repr__(self):
+        return "%r" % (self.__dict__)

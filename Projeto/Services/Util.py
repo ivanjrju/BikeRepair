@@ -76,7 +76,8 @@ class FuncoesCliente(object):
 
     def buscarCartaoCliente(dados):
         try:
-            cartoes  =  Cartao.Cartao.query.filter_by(idCliente=dados["id"]).all()
+            cliente = removerInstance(Cliente.Cliente.query.filter_by(email=dados["email"]).first())
+            cartoes  =  Cartao.Cartao.query.filter_by(idCliente=cliente["id"]).all()
             listaDeCartoes = []
             for cartao in cartoes:
                 listaDeCartoes.append(removerInstance(cartao))
@@ -121,6 +122,59 @@ class FuncoesOficina(object):
             return None
 
 
+#~~~~ Endereco
+class FuncoesEndereco(object):
+    def cadastrar(dados,oficina):
+        try:
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
+            endereco = EnderecoOficina.EnderecoOficina(dados)
+            endereco.idOficina = oficina["id"]
+            db.session.add(endereco)
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+    
+    def listar(oficina):
+        try:
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
+            endereco = removerInstance(EnderecoOficina.EnderecoOficina.query.filter_by(idOficina=oficina["id"]).first())
+            return resposta("OK", endereco)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+
+#~~~~ Avaliação
+class FuncoesAvaliacao(object):
+    def cadastrar(dados,cliente,oficina):
+        try:
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
+            cliente = removerInstance(Cliente.Cliente.query.filter_by(email=cliente["email"]).first())
+            avaliacao = Avaliacao.Avaliacao(dados)
+            avaliacao.idOficina = oficina["id"]
+            avaliacao.idCliente = cliente["id"]
+            db.session.add(avaliacao)
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+    def listarPorOficina(oficina):
+        try:
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
+            avaliacoes = Avaliacao.Avaliacao.query.filter_by(idOficina=oficina["id"]).all()
+            avaliacoesFormatadas = []
+            for avaliacao in avaliacoes:
+                print(avaliacao)
+                avaliacoesFormatadas.append(removerInstance(avaliacao))
+            return resposta("OK", avaliacoesFormatadas)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
 #~~~~ Produto
 class FuncoesProduto(object):
     def cadastrar(produto,oficina):
@@ -135,9 +189,10 @@ class FuncoesProduto(object):
             print(e)
             return resposta("NOK", None)
 
-    def listar():
+    def listar(dados):
         try:
-            produtos =  Produto.Produto.query.all()
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=dados["email"]).first())
+            produtos =  Produto.Produto.query.filter_by(idOficina=oficina["id"]).all()
             produtosFormatados = []
             for produto in produtos:
                 produtosFormatados.append(removerInstance(produto)) 
@@ -187,9 +242,31 @@ class FuncoesOrdemSerivo(object):
             print(e)
             return resposta("NOK", None)
 
+#~~~~ Item Ordem Servico
+class FuncoesItemOrdemSerivo(object):
+    def cadastrar(ordemServico, produto, item):
+        try:
+            itemOrdemServico = ItemOrdemServico.ItemOrdemServico(item)
+            itemOrdemServico.idOrdemServico =  ordemServico["id"]
+            itemOrdemServico.idProduto =  produto["id"]
+            db.session.add(itemOrdemServico)
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
 
-
-
+    def listarItemOrdemServicos(ordemServico):
+        try:
+            itemsOrdemServico = ItemOrdemServico.ItemOrdemServico.query.filter_by(idOrdemServico=ordemServico["id"]).all()
+            itemOrdemServicoFormatados = []
+            for itemOrdemServico in itemsOrdemServico:
+                itemOrdemServicoFormatados.append(removerInstance(itemOrdemServico))
+            return resposta("OK", itemOrdemServicoFormatados)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+    
 def resposta(status, dados):
     respostaPadrao = {}
     respostaPadrao['status'] = status

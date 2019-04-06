@@ -11,3 +11,10 @@ class Avaliacao(db.Model):
     comentario = db.Column(db.String, nullable=False)
     idCliente = db.Column(db.Integer, db.ForeignKey('cliente.id'))
     idOficina = db.Column(db.Integer, db.ForeignKey('oficina.id'))
+
+    def __init__(self, dados):
+        self.nota=dados["nota"]
+        self.comentario=dados["comentario"]
+
+    def __repr__(self):
+        return "%r" % (self.__dict__)
