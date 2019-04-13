@@ -50,6 +50,38 @@ def buscarCartaoCliente():
     return jsonify(cartoes)
 
 
+#~~~~ Arquivo Cliente
+@App.route('/cadastrarArquivoCliente', methods=["POST"])
+def cadastrarArquivoCliente():
+    dados = request.get_json()
+    arquivo = dados["arquivo"]
+    cliente = dados["cliente"]
+    resposta = Util.FuncoesArquivoCliente.cadastrar(arquivo,cliente)
+    return jsonify(resposta)
+
+@App.route('/buscarArquivosCliente', methods=["POST"])
+def buscarArquivosCliente():
+    dados = request.get_json()
+    resposta = Util.FuncoesArquivoCliente.buscar(dados)
+    return jsonify(resposta)
+
+
+#~~~~ Arquivo Oficina
+@App.route('/cadastrarArquivoOficina', methods=["POST"])
+def cadastrarArquivoOficina():
+    dados = request.get_json()
+    arquivo = dados["arquivo"]
+    oficina = dados["oficina"]
+    resposta = Util.FuncoesArquivoOficina.cadastrar(arquivo,oficina)
+    return jsonify(resposta)
+
+@App.route('/buscarArquivosOficina', methods=["POST"])
+def buscarArquivosOficina():
+    dados = request.get_json()
+    resposta = Util.FuncoesArquivoOficina.buscar(dados)
+    return jsonify(resposta)
+
+
 #~~~~ Oficina
 @App.route('/cadastrarOficina', methods=["POST"])
 def cadastrarOficina():

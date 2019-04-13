@@ -1,4 +1,5 @@
-from Models import Avaliacao, Cartao, Chat, ChatMensagem, Cliente, EnderecoOficina, ItemOrdemServico, Oficina, OrdemServico, Produto
+from Models import Avaliacao, Cartao, Chat, ChatMensagem, Cliente, EnderecoOficina
+from Models import ItemOrdemServico, Oficina, OrdemServico, Produto, ArquivoCliente, ArquivoOficina
 from Server import db
 
 #~~~~ Login
@@ -35,7 +36,6 @@ class FuncoesCliente(object):
     def cadastrar(dados):
         try:
             cliente = Cliente.Cliente(dados)
-            print(cliente)
             db.session.add(cliente)
             db.session.commit()
             return resposta("OK", "")
@@ -88,12 +88,38 @@ class FuncoesCliente(object):
             return resposta("NOK", None)
 
 
+#~~~~ Arquivo Cliente
+class FuncoesArquivoCliente(object):
+    def cadastrar(arquivo,cliente):
+        try:
+            cliente = removerInstance(Cliente.Cliente.query.filter_by(email=cliente["email"]).first())
+            arquivoCliente = ArquivoCliente.ArquivoCliente(arquivo)
+            arquivoCliente.idCliente = cliente["id"]
+            db.session.add(arquivoCliente)
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e:
+            print(e)
+            return resposta("NOK", None)
+
+    def buscar(dados):
+        try:
+            cliente = removerInstance(Cliente.Cliente.query.filter_by(email=dados["email"]).first())
+            arquivosCliente = ArquivoCliente.ArquivoCliente.query.filter_by(idCliente=cliente["id"]).all()
+            arquivosClienteFormatados = []
+            for arquivoCliente in arquivosCliente:
+                arquivosClienteFormatados.append(removerInstance(arquivoCliente)) 
+            return resposta("OK", arquivosClienteFormatados)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+
 #~~~~ Oficina
 class FuncoesOficina(object):
     def cadastrar(dados):
         try:
             oficina = Oficina.Oficina(dados)
-            print(oficina)
             db.session.add(oficina)
             db.session.commit()
             return resposta("OK", "")
@@ -104,7 +130,6 @@ class FuncoesOficina(object):
     def listar():
         try:
             oficinas =  Oficina.Oficina.query.all()
-            print(oficinas)
             oficinasFormatados = []
             for oficina in oficinas:
                 oficinasFormatados.append(removerInstance(oficina)) 
@@ -120,6 +145,33 @@ class FuncoesOficina(object):
         except Exception as e: 
             print(e)
             return None
+
+
+#~~~~ Arquivo Oficina
+class FuncoesArquivoOficina(object):
+    def cadastrar(arquivo,oficina):
+        try:
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
+            arquivoOficina = ArquivoOficina.ArquivoOficina(arquivo)
+            arquivoOficina.idOficina = oficina["id"]
+            db.session.add(arquivoOficina)
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e:
+            print(e)
+            return resposta("NOK", None)
+
+    def buscar(dados):
+        try:
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=dados["email"]).first())
+            arquivosOficina = ArquivoOficina.ArquivoOficina.query.filter_by(idOficina=oficina["id"]).all()
+            arquivosOficinaFormatados = []
+            for arquivoOficina in arquivosOficina:
+                arquivosOficinaFormatados.append(removerInstance(arquivoOficina)) 
+            return resposta("OK", arquivosOficinaFormatados)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
 
 
 #~~~~ Endereco
@@ -168,7 +220,6 @@ class FuncoesAvaliacao(object):
             avaliacoes = Avaliacao.Avaliacao.query.filter_by(idOficina=oficina["id"]).all()
             avaliacoesFormatadas = []
             for avaliacao in avaliacoes:
-                print(avaliacao)
                 avaliacoesFormatadas.append(removerInstance(avaliacao))
             return resposta("OK", avaliacoesFormatadas)
         except Exception as e: 
@@ -277,6 +328,3 @@ def removerInstance(dados):
     dados = dados.__dict__
     del dados["_sa_instance_state"]
     return dados
-
-def teste(dados):
-    print(dados)

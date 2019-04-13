@@ -1,5 +1,5 @@
 from Server import db
-from sqlalchemy import Column, Integer, Boolean
+from sqlalchemy import Column, Integer, Boolean, Float
 
 
 class OrdemServico(db.Model):
@@ -9,7 +9,7 @@ class OrdemServico(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Boolean, nullable=False)
-    precoTotal = db.Column(db.Integer, nullable=False)#Float
+    precoTotal = db.Column(db.Float, nullable=False)
 
     itemOrndemServicos = db.relationship('ItemOrdemServico', backref='ordemServico')
 
