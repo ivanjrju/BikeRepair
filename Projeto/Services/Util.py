@@ -9,6 +9,7 @@ class Login(object):
             email = dados["email"]
             senha = dados["senha"]
             login = FuncoesCliente.buscarCliente(email)
+            
             if(login["senha"] == senha):
                 return resposta("OK", login)
             else:

@@ -10,6 +10,7 @@ import sys
 @App.route('/loginCliente', methods=["POST"])
 def loginCliente():
     dados = request.get_json()
+    print("Dados: ",dados)
     resposta = Util.Login.cliente(dados)
     return jsonify(resposta)
 
