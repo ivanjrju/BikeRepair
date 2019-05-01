@@ -13,4 +13,4 @@ from ErrorHandlers import *
 from Routes import *
 
 if __name__ == '__main__':
-    App.run(host=0.0.0.0, port=80, debug='true')
+    App.run(host="0.0.0.0", port=80, debug='true')
