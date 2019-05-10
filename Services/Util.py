@@ -331,7 +331,7 @@ class FuncoesChat(object):
 
             cliente = removerInstance(Cliente.Cliente.query.filter_by(email=cliente["email"]).first())
             oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
-
+            
             chat.idCliente = cliente["id"]
             chat.idOficina = oficina["id"]
 

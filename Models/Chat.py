@@ -12,10 +12,5 @@ class Chat(db.Model):
     
     chatMensagem = db.relationship('ChatMensagem', backref='chat')
 
-    def __init__(self, dados):
-        self.id=dados["id"]
-        self.idCliente=dados["idCliente"]
-        self.idOficina=dados["idOficina"]
-
     def __repr__(self):
         return "%r" % (self.__dict__)
