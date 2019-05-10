@@ -206,10 +206,10 @@ ALTER SEQUENCE public.chat_id_seq OWNED BY public.chat.id;
 CREATE TABLE public.chat_mensagem (
     id integer NOT NULL,
     mensagem character varying NOT NULL,
-    data character varying NOT NULL,
+    data integer NOT NULL,
     receptor character varying NOT NULL,
     emissor character varying NOT NULL,
-    "idChat" integer
+    "idCliente" integer
 );
 
 
@@ -559,186 +559,6 @@ ALTER TABLE ONLY public.produto ALTER COLUMN id SET DEFAULT nextval('public.prod
 
 
 --
--- Data for Name: arquivo_cliente; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.arquivo_cliente (id, arquivo, "idCliente") FROM stdin;
-\.
-
-
---
--- Data for Name: arquivo_oficina; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.arquivo_oficina (id, arquivo, "idOficina") FROM stdin;
-\.
-
-
---
--- Data for Name: avaliacao; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.avaliacao (id, nota, comentario, "idCliente", "idOficina") FROM stdin;
-\.
-
-
---
--- Data for Name: cartao; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.cartao (id, pan, "dataValidade", "codigoSeguranca", "nomeCartao", "idCliente") FROM stdin;
-\.
-
-
---
--- Data for Name: chat; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.chat (id, "idCliente", "idOficina") FROM stdin;
-\.
-
-
---
--- Data for Name: chat_mensagem; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.chat_mensagem (id, mensagem, data, receptor, emissor, "idChat") FROM stdin;
-\.
-
-
---
--- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.cliente (id, nome, telefone, aniversario, email, senha, autenticado, "dataCadastro", raio) FROM stdin;
-\.
-
-
---
--- Data for Name: endereco; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.endereco (id, latitude, longitude, cep, numero, "idOficina") FROM stdin;
-\.
-
-
---
--- Data for Name: item_ordem_servico; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.item_ordem_servico (id, "qntProduto", "idOrdemServico", "idProduto") FROM stdin;
-\.
-
-
---
--- Data for Name: oficina; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.oficina (id, nome, email, senha, "cpfCnpj", "avaliacaoTotal", descricao, "dataCadastro", "qntOrcamentosAtendidos", "qntOrcamentosRejeitados", "qntReboquesAtendidos", "qntReboquesRejeitados", "horarioFuncionamento") FROM stdin;
-\.
-
-
---
--- Data for Name: ordem_servico; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.ordem_servico (id, data, status, "precoTotal", "idCliente", "idOficina") FROM stdin;
-\.
-
-
---
--- Data for Name: produto; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.produto (id, nome, preco, descricao, categoria, "precoCancelamento", "idOficina") FROM stdin;
-\.
-
-
---
--- Name: arquivo_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.arquivo_cliente_id_seq', 1, false);
-
-
---
--- Name: arquivo_oficina_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.arquivo_oficina_id_seq', 1, false);
-
-
---
--- Name: avaliacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.avaliacao_id_seq', 1, false);
-
-
---
--- Name: cartao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.cartao_id_seq', 1, false);
-
-
---
--- Name: chat_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.chat_id_seq', 1, false);
-
-
---
--- Name: chat_mensagem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.chat_mensagem_id_seq', 1, false);
-
-
---
--- Name: cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.cliente_id_seq', 1, false);
-
-
---
--- Name: endereco_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.endereco_id_seq', 1, false);
-
-
---
--- Name: item_ordem_servico_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.item_ordem_servico_id_seq', 1, false);
-
-
---
--- Name: oficina_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.oficina_id_seq', 1, false);
-
-
---
--- Name: ordem_servico_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.ordem_servico_id_seq', 1, false);
-
-
---
--- Name: produto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.produto_id_seq', 1, false);
-
-
---
 -- Name: arquivo_cliente arquivo_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -907,11 +727,11 @@ ALTER TABLE ONLY public.chat
 
 
 --
--- Name: chat_mensagem chat_mensagem_idChat_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: chat_mensagem chat_mensagem_idCliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.chat_mensagem
-    ADD CONSTRAINT "chat_mensagem_idChat_fkey" FOREIGN KEY ("idChat") REFERENCES public.chat(id);
+    ADD CONSTRAINT "chat_mensagem_idCliente_fkey" FOREIGN KEY ("idCliente") REFERENCES public.chat(id);
 
 
 --

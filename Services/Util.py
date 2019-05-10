@@ -2,6 +2,8 @@ from Models import Avaliacao, Cartao, Chat, ChatMensagem, Cliente, EnderecoOfici
 from Models import ItemOrdemServico, Oficina, OrdemServico, Produto, ArquivoCliente, ArquivoOficina
 from Server import db
 
+from time import strftime
+
 #~~~~ Login
 class Login(object):
     def cliente(dados):
@@ -294,6 +296,7 @@ class FuncoesOrdemSerivo(object):
             print(e)
             return resposta("NOK", None)
 
+
 #~~~~ Item Ordem Servico
 class FuncoesItemOrdemSerivo(object):
     def cadastrar(ordemServico, produto, item):
@@ -318,7 +321,106 @@ class FuncoesItemOrdemSerivo(object):
         except Exception as e: 
             print(e)
             return resposta("NOK", None)
+
+
+#~~~~ Chat
+class FuncoesChat(object):
+    def criar(cliente,oficina):
+        try:
+            chat = Chat.Chat()
+
+            cliente = removerInstance(Cliente.Cliente.query.filter_by(email=cliente["email"]).first())
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(email=oficina["email"]).first())
+
+            chat.idCliente = cliente["id"]
+            chat.idOficina = oficina["id"]
+
+            db.session.add(chat)
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+    def retornaChat(dados):
+        CHAVE_CLIENTE = 0
+        CHAVE_OFICINA = 1
+        try:
+            print("#")
+            chats = ""
+            if(dados["valor"] == CHAVE_CLIENTE):
+                cliente = removerInstance(Cliente.Cliente.query.filter_by(id=dados["id"]).first())
+                chats = Chat.Chat.query.filter_by(idCliente=cliente["id"]).all()
+
+            if(dados["valor"] == CHAVE_OFICINA):
+                oficina = removerInstance(Oficina.Oficina.query.filter_by(id=dados["id"]).first())
+                chats = Chat.Chat.query.filter_by(idOficina=oficina["id"]).all()
+     
+            chatFormatados = []
+            for chat in chats:
+                chatFormatados.append(removerInstance(chat))
+            return resposta("OK", chatFormatados)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+    def mensagem(mensagemEnviada,chat,chave):
+        CHAVE_CLIENTE = 0
+        CHAVE_OFICINA = 1
+        try:
+            msg = ChatMensagem.ChatMensagem()
+            
+            msg.mensagem = mensagemEnviada["texto"]
+            msg.data = strftime("%d/%m/%Y %H:%M")
+
+            chatRecuperado = removerInstance(Chat.Chat.query.filter_by(id=chat["id"]).first())
+
+            msg.idChat = chatRecuperado["id"]
+            cliente = removerInstance(Cliente.Cliente.query.filter_by(id=chatRecuperado["idCliente"]).first())
+            oficina = removerInstance(Oficina.Oficina.query.filter_by(id=chatRecuperado["idOficina"]).first())
+
+            if(chave["valor"] == CHAVE_CLIENTE):
+                msg.emissor =  cliente["email"]
+                msg.receptor = oficina["email"]
+
+            if(chave["valor"] == CHAVE_OFICINA):
+                msg.emissor = oficina["email"]
+                msg.receptor = cliente["email"]
+
+            db.session.add(msg)
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
+    def exibirMensagens(dados):
+        try:
+            chatMensagens = ChatMensagem.ChatMensagem.query.filter_by(idChat=dados["id"]).all()
+     
+            chatMensagensFormatados = []
+            for mensagens in chatMensagens:
+                chatMensagensFormatados.append(removerInstance(mensagens))
+            return resposta("OK", chatMensagensFormatados)
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def resposta(status, dados):
     respostaPadrao = {}
     respostaPadrao['status'] = status
@@ -329,3 +431,5 @@ def removerInstance(dados):
     dados = dados.__dict__
     del dados["_sa_instance_state"]
     return dados
+
+    

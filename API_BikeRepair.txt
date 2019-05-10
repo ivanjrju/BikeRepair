@@ -1,0 +1,230 @@
+API BikeRepair
+URL BASE: https://ivjbikerepair.herokuapp.com/
+
+CAMINHO: cadastrarCliente
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	  "nome":"Ivan",
+	  "telefone":988806749,
+	  "aniversario":"06/12/1995",
+	  "email":"ivan-ju@hotmail.com",
+	  "senha":"bikerepair123"
+	}
+
+CAMINHO: listarClientes
+METHOD: GET
+
+CAMINHO: loginCliente
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	  "email":"ivan-ju@hotmail.com",
+	  "senha":"bikerepair123"
+	}
+
+CAMINHO: cadastrarCartaoCliente
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "cartao": {
+	        "pan":"5524",
+			"dataValidade":"01/03/2020",
+			"codigoSeguranca":"391",
+			"nomeCartao":"IVAN S DIAS JUNIOR"
+	    },
+	    "cliente": {
+	        "email": "ivan-ju@hotmail.com"
+	    }
+	}
+
+CAMINHO: buscarCartaoCliente
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "email": "ivan-ju@hotmail.com"
+	}
+
+CAMINHO: cadastrarOficina
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	  "nome":"Oficina do Joao",
+	  "email":"oficina_joao2@hotmail.com",
+	  "senha":"joao123",
+	  "cpfCnpj":"123456123456",
+	  "horarioFuncionamento":"10:30-17:00"
+	}
+
+CAMINHO: loginOficina
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	  "email":"oficina_joao@hotmail.com",
+	  "senha":"joao123"
+	}
+
+CAMINHO: listarOficinas
+METHOD: GET
+
+CAMINHO: cadastrarProduto
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "produto": {
+	        "nome":"Pedal",
+			"preco":10.50,
+			"descricao":"Pedal da marca X",
+			"categoria":"Pedaleira",
+			"precoCancelamento":0
+	    },
+	    "oficina": {
+	        "email": "oficina_joao@hotmail.com"
+	    }
+	}
+
+CAMINHO: listarProdutos
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+		"email": "oficina_joao@hotmail.com"
+	}
+
+CAMINHO: cadastrarOrdemServico
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "ordemServico": {
+	        "data":4042019,
+			"status":false,
+			"precoTotal":50.0
+	    },
+	    "oficina": {
+	        "email": "oficina_joao@hotmail.com"
+	    },
+	    "cliente": {
+	        "email": "ivan-ju@hotmail.com"
+	    }
+	}
+
+CAMINHO: listarOrdemServicoCliente
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	  "email":"ivan-ju@hotmail.com"
+	}
+
+
+CAMINHO: listarOrdemServicoOficina
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	  "email":"oficina_joao@hotmail.com"
+	}
+
+
+CAMINHO: cadastrarItemOrdemServico
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "ordemServico": {
+	        "id":3
+	    },
+	    "produto": {
+	        "id":2
+	    },
+	    "item": {
+	        "qntProduto": 5
+	    }
+	}
+
+CAMINHO: listarItemOrdemServico
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	  "id":3
+	}
+
+
+CAMINHO: cadastrarAvaliacao
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "avaliacao": {
+	        "nota":5,
+	        "comentario":"Excelente oficina!"
+	    },
+	    "oficina": {
+	        "email": "oficina_joao@hotmail.com"
+	    },
+	    "cliente": {
+	        "email": "ivan-ju@hotmail.com"
+	    }
+	}	
+
+CAMINHO: listarAvaliacaoPorOficina
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+		"email": "oficina_joao2@hotmail.com"
+	}
+
+CAMINHO: cadastrarEndereco
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "endereco": {
+	        "latitude":-23.5489,
+	        "longitude":-46.6388,
+	        "cep":3047000,
+	        "numero":1567
+	    },
+	    "oficina": {
+	        "email": "oficina_joao@hotmail.com"
+	    }
+	}
+
+CAMINHO: exibirEndereco
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+		"email": "oficina_joao2@hotmail.com"
+	}
+
+CAMINHO: cadastrarArquivoCliente
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "arquivo": {
+	        "arquivo":"qbTLbXJZuj9vU1PsEyrJcrgdVjHb60hlN53ky0h2RAcDuayNRtXkYEg7Tj6UDKdnZJbxpgdB2q82xU+Xj6VYEQVQAKjkAVc4oFcr"
+	    },
+	    "cliente": {
+	        "email":"ivan-ju@hotmail.com"
+	    }
+	}
+
+CAMINHO: buscarArquivosCliente
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "email":"ivan-ju@hotmail.com"
+	}
+
+CAMINHO: cadastrarArquivoOficina
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "arquivo": {
+	        "arquivo":"qbTLbXJZuj9vU1PsEyrJcrgdVjHb60hlN53ky0h2RAcDuayNRtXkYEg7Tj6UDKdnZJbxpgdB2q82xU+Xj6VYEQVQAKjkAVc4oFcr"
+	    },
+	    "oficina": {
+	        "email":"oficina_joao2@hotmail.com"
+	    }
+	}
+
+CAMINHO: buscarArquivosOficina
+METHOD: POST
+EXEMPLO ENVIO:
+	{
+	    "email":"oficina_joao2@hotmail.com"
+	}

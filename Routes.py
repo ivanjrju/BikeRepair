@@ -186,3 +186,34 @@ def listarItemOrdemServico():
     return jsonify(resposta)
 
 
+#~~~ Chat
+@App.route('/criarChat', methods=["POST"])
+def criarChat():
+    dados = request.get_json()
+    cliente = dados["cliente"]
+    oficina = dados["oficina"]
+    resposta = Util.FuncoesChat.criar(cliente,oficina)
+    return jsonify(resposta)
+
+@App.route('/retornaChat', methods=["POST"])
+def retornaChat():
+	dados = request.get_json()
+	resposta = Util.FuncoesChat.retornaChat(dados)
+	return jsonify(resposta)
+
+
+#~~~ Mensagem
+@App.route('/criarMensagemChat', methods=["POST"])
+def criarMensagemChat():
+    dados = request.get_json()
+    mensagem = dados["mensagem"]
+    chat = dados["chat"]
+    chave = dados["chave"]
+    resposta = Util.FuncoesChat.mensagem(mensagem,chat,chave)
+    return jsonify(resposta)
+
+@App.route('/exibirMensagensChat', methods=["POST"])
+def exibirMensagensChat():
+    dados = request.get_json()
+    resposta = Util.FuncoesChat.exibirMensagens(dados)
+    return jsonify(resposta)

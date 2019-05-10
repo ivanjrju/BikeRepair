@@ -30,7 +30,7 @@ class Cliente(db.Model):
         self.email=dados["email"]
         self.senha=dados["senha"]
         self.autenticado=False
-        self.dataCadastro= strftime("%d/%m/%Y", gmtime())
+        self.dataCadastro= strftime("%d/%m/%Y")
         self.raio=10
 
     def __repr__(self):

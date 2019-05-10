@@ -7,8 +7,9 @@ class ChatMensagem(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     mensagem = db.Column(db.String, nullable=False)
-    data = db.Column(db.Integer, nullable=False)
+    data = db.Column(db.String, nullable=False)
     receptor = db.Column(db.String, nullable=False)
     emissor = db.Column(db.String, nullable=False) 
 
-    idCliente = db.Column(db.Integer, db.ForeignKey('chat.id'))
+    idChat = db.Column(db.Integer, db.ForeignKey('chat.id'))
+    
