@@ -34,7 +34,7 @@ def listarClientes():
     lista = Util.FuncoesCliente.listar()
     return jsonify(lista)
 
-@App.route('/alterarCliente', methods=["PUT"])
+@App.route('/alterarCliente', methods=["POST"])
 def alterarCliente():
 	dados = request.get_json()
 	lista = Util.FuncoesCliente.alterarCliente(dados)
