@@ -34,6 +34,12 @@ def listarClientes():
     lista = Util.FuncoesCliente.listar()
     return jsonify(lista)
 
+@App.route('/alterarCliente', methods=["PUT"])
+def alterarCliente():
+	dados = request.get_json()
+	lista = Util.FuncoesCliente.alterarCliente(dados)
+	return jsonify(lista)
+
 
 #~~~~ Cartao
 @App.route('/cadastrarCartaoCliente', methods=["POST"])

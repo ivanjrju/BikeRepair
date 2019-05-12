@@ -65,6 +65,19 @@ class FuncoesCliente(object):
             print(e)
             return None
 
+    def alterarCliente(dados):   
+        try:
+            cliente =  Cliente.Cliente.query.filter_by(id=dados["id"]).first()
+            cliente.telefone = dados["telefone"]
+            cliente.senha = dados["senha"]
+            cliente.autenticado = dados["autenticado"]
+            cliente.raio = dados["raio"]
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
     def cadastrarCartao(dados,email):
         try:
             cliente = removerInstance(Cliente.Cliente.query.filter_by(email=email["email"]).first())
