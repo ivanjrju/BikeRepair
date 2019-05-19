@@ -401,6 +401,8 @@ class FuncoesChat(object):
                 msg.emissor = oficina["email"]
                 msg.receptor = cliente["email"]
 
+            print(msg)
+
             db.session.add(msg)
             db.session.commit()
             return resposta("OK", "")
@@ -419,20 +421,6 @@ class FuncoesChat(object):
         except Exception as e: 
             print(e)
             return resposta("NOK", None)
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def resposta(status, dados):

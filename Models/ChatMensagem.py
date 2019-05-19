@@ -13,3 +13,5 @@ class ChatMensagem(db.Model):
 
     idChat = db.Column(db.Integer, db.ForeignKey('chat.id'))
     
+    def __repr__(self):
+        return "%r" % (self.__dict__)
