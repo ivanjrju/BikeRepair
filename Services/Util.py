@@ -72,6 +72,7 @@ class FuncoesCliente(object):
             cliente.senha = dados["senha"]
             cliente.autenticado = dados["autenticado"]
             cliente.raio = dados["raio"]
+            cliente.keyfirebase = dados["keyfirebase"]
             db.session.commit()
             return resposta("OK", "")
         except Exception as e: 
