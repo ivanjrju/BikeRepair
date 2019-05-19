@@ -16,7 +16,7 @@ class Cliente(db.Model):
     autenticado = db.Column(db.Boolean)
     dataCadastro = db.Column(db.String)
     raio = db.Column(db.Integer)
-    keyFirebase = db.Column(db.String)
+    keyfirebase = db.Column(db.String)
 
     cartoes = db.relationship('Cartao', backref='cliente')
     avaliacoes = db.relationship('Avaliacao', backref='cliente')
@@ -33,7 +33,7 @@ class Cliente(db.Model):
         self.autenticado=False
         self.dataCadastro= strftime("%d/%m/%Y")
         self.raio=10
-        self.keyFirebase=" "
+        self.keyfirebase=" "
 
     def __repr__(self):
         return "%r" % (self.__dict__)
