@@ -282,6 +282,8 @@ class FuncoesOrdemSerivo(object):
             db.session.add(ordemServico)
             db.session.commit()
 
+            print(ordemServico)
+
             retorno = removerInstance(OrdemServico.OrdemServico.query.get(-1))
 
             return resposta("OK", retorno)
