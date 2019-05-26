@@ -282,7 +282,7 @@ class FuncoesOrdemSerivo(object):
             db.session.add(ordemServico)
             db.session.commit()
 
-            retorno = removerInstance(OrdemServico.OrdemServico.query.last())
+            retorno = removerInstance(OrdemServico.OrdemServico.query.get(-1))
 
             return resposta("OK", retorno)
         except Exception as e: 
