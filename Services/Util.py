@@ -281,7 +281,10 @@ class FuncoesOrdemSerivo(object):
             ordemServico.idOficina = oficina["id"]         
             db.session.add(ordemServico)
             db.session.commit()
-            return resposta("OK", "")
+
+            retorno = removerInstance(OrdemServico.OrdemServico.query.all().last())
+
+            return resposta("OK", retorno)
         except Exception as e: 
             print(e)
             return resposta("NOK", None)
