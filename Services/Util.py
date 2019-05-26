@@ -282,11 +282,7 @@ class FuncoesOrdemSerivo(object):
             db.session.add(ordemServico)
             db.session.commit()
 
-            print(ordemServico.id)
-
-            retorno = removerInstance(OrdemServico.OrdemServico.query.get(-1))
-
-            return resposta("OK", retorno)
+            return resposta("OK", ordemServico.id)
         except Exception as e: 
             print(e)
             return resposta("NOK", None)
