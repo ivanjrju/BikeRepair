@@ -2,6 +2,9 @@ from Models import Avaliacao, Cartao, Chat, ChatMensagem, Cliente, EnderecoOfici
 from Models import ItemOrdemServico, Oficina, OrdemServico, Produto, ArquivoCliente, ArquivoOficina
 from Server import db
 
+import requests as Req
+import json
+
 from time import strftime
 
 #~~~~ Login
@@ -401,6 +404,13 @@ class FuncoesChat(object):
             if(chave["valor"] == CHAVE_OFICINA):
                 msg.emissor = oficina["email"]
                 msg.receptor = cliente["email"]
+
+                fb = cliente["keyfirebase"]
+                url = "https://fcm.googleapis.com/fcm/send"
+                payload = {'to': fb, 'data': {'msg': msg.mensagem, 'cliente': cliente, 'oficina': oficina} }
+                headers = {'Content-Type': 'application/json', 'Authorization': 'key=AAAAUj-NrpI:APA91bHzgjvmH_W5piYkJSvIpdbCWji8zYWl2FFEH7Uba7qCVoAG-6Nood9odHRwsSWKtJnN-zcGfwqorP3NMmYE0qVgmMgrQh9DmFzpf0r7cxFbx0Nr4jVLo2LwmTxV_ETusRQMimZz'}
+                r = Req.post(url, data=json.dumps(payload), headers=headers)
+                print(r)
 
             print(msg)
 
