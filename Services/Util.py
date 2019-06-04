@@ -171,6 +171,7 @@ class FuncoesOficina(object):
             oficina =  Oficina.Oficina.query.filter_by(id=dados["id"]).first()
             oficina.senha = dados["senha"]
             oficina.descricao = dados["descricao"]
+            oficina.avaliacaoTotal = dados["avaliacaoTotal"]
             oficina.qntOrcamentosAtendidos = dados["qntOrcamentosAtendidos"]
             oficina.qntOrcamentosRejeitados = dados["qntOrcamentosRejeitados"]
             oficina.qntReboquesAtendidos = dados["qntReboquesAtendidos"]
