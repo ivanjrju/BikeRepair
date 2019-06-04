@@ -101,6 +101,12 @@ def listarOficinas():
     lista = Util.FuncoesOficina.listar()
     return jsonify(lista)
 
+@App.route('/alterarOficina', methods=["POST"])
+def alterarOficina():
+	dados = request.get_json()
+	lista = Util.FuncoesCliente.alterarOficina(dados)
+	return jsonify(lista)
+
 
 #~~~~ Endereco
 @App.route('/cadastrarEndereco', methods=["POST"])

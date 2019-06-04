@@ -166,6 +166,22 @@ class FuncoesOficina(object):
             print(e)
             return None
 
+    def alterarOficina(dados):   
+        try:
+            oficina =  Oficina.Oficina.query.filter_by(id=dados["id"]).first()
+            oficina.senha = dados["senha"]
+            oficina.descricao = dados["descricao"]
+            oficina.qntOrcamentosAtendidos = dados["qntOrcamentosAtendidos"]
+            oficina.qntOrcamentosRejeitados = dados["qntOrcamentosRejeitados"]
+            oficina.qntReboquesAtendidos = dados["qntReboquesAtendidos"]
+            oficina.qntReboquesRejeitados = dados["qntReboquesRejeitados"]
+            oficina.horarioFuncionamento = dados["horarioFuncionamento"]
+            db.session.commit()
+            return resposta("OK", "")
+        except Exception as e: 
+            print(e)
+            return resposta("NOK", None)
+
 
 #~~~~ Arquivo Oficina
 class FuncoesArquivoOficina(object):
