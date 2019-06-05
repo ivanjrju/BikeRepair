@@ -302,7 +302,7 @@ class FuncoesOrdemSerivo(object):
             ordemServico = OrdemServico.OrdemServico(ordemServico)
             ordemServico.idCliente = cliente["id"]
             ordemServico.idOficina = oficina["id"]    
-            ordemServico.data = datetime.date.today() 
+            ordemServico.data = int((datetime.date.today()).strftime("%d%m%Y")) 
             db.session.add(ordemServico)
             db.session.commit()
             return resposta("OK", ordemServico.id)
