@@ -2,6 +2,9 @@ from Models import Avaliacao, Cartao, Chat, ChatMensagem, Cliente, EnderecoOfici
 from Models import ItemOrdemServico, Oficina, OrdemServico, Produto, ArquivoCliente, ArquivoOficina
 from Server import db
 
+
+import datetime
+
 import requests as Req
 import json
 
@@ -298,10 +301,10 @@ class FuncoesOrdemSerivo(object):
             cliente = removerInstance(Cliente.Cliente.query.filter_by(email=cliente["email"]).first())
             ordemServico = OrdemServico.OrdemServico(ordemServico)
             ordemServico.idCliente = cliente["id"]
-            ordemServico.idOficina = oficina["id"]         
+            ordemServico.idOficina = oficina["id"]    
+            ordemServico.data = datetime.date.today() 
             db.session.add(ordemServico)
             db.session.commit()
-
             return resposta("OK", ordemServico.id)
         except Exception as e: 
             print(e)
