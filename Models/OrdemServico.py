@@ -1,4 +1,5 @@
 from Server import db
+import datetime
 from sqlalchemy import Column, Integer, Boolean, Float
 
 
@@ -17,7 +18,7 @@ class OrdemServico(db.Model):
     idOficina = db.Column(db.Integer, db.ForeignKey('oficina.id'))
 
     def __init__(self, dados):
-        self.data=dados["data"]
+        self.data=datetime.date.today()  
         self.status=dados["status"]
         self.precoTotal=dados["precoTotal"]
 
