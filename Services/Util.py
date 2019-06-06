@@ -443,11 +443,15 @@ class FuncoesChat(object):
 
     def exibirMensagens(dados):
         try:
+            print(dados)
+            print("#")
             chatMensagens = ChatMensagem.ChatMensagem.query.filter_by(idChat=dados["id"]).all()
-     
+            print("#")
             chatMensagensFormatados = []
+            print("#")
             for mensagens in chatMensagens:
                 chatMensagensFormatados.append(removerInstance(mensagens))
+            print("#")
             return resposta("OK", chatMensagensFormatados)
         except Exception as e: 
             print(e)
