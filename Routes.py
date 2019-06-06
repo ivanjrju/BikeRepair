@@ -224,7 +224,7 @@ def criarMensagemChat():
     resposta = Util.FuncoesChat.mensagem(mensagem,chat,chave)
     return jsonify(resposta)
 
-@App.route('/exibirMensagensChat', methods=["POST"])
+@App.route('/exibirMensagensChat/', methods=["POST"])
 def exibirMensagensChat():
     dados = request.get_json()
     resposta = Util.FuncoesChat.exibirMensagens(dados)
