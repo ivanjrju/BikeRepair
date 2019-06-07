@@ -96,6 +96,13 @@ def cadastrarOficina():
     resposta = Util.FuncoesOficina.cadastrar(dados)
     return jsonify(resposta)
 
+@App.route('/buscarOficina', methods=["POST"])
+def buscarOficina():
+    dados = request.get_json()
+    resposta = Util.FuncoesOficina.buscarOficinaId(dados)
+    return jsonify(resposta)
+
+
 @App.route('/listarOficinas', methods=["GET"])
 def listarOficinas():
     lista = Util.FuncoesOficina.listar()

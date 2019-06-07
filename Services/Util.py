@@ -169,6 +169,14 @@ class FuncoesOficina(object):
             print(e)
             return None
 
+    def buscarOficinaId(id):
+        try:
+            oficina =  Oficina.Oficina.query.filter_by(id=id).first()
+            return removerInstance(oficina)
+        except Exception as e: 
+            print(e)
+            return None
+
     def alterarOficina(dados):   
         try:
             oficina =  Oficina.Oficina.query.filter_by(id=dados["id"]).first()
