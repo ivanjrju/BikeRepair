@@ -169,9 +169,9 @@ class FuncoesOficina(object):
             print(e)
             return None
 
-    def buscarOficinaId(id):
+    def buscarOficinaId(dados):
         try:
-            oficina =  Oficina.Oficina.query.filter_by(id=id).first()
+            oficina =  Oficina.Oficina.query.filter_by(id=dados["id"]).first()
             return removerInstance(oficina)
         except Exception as e: 
             print(e)
